@@ -22,10 +22,22 @@ const db = mysql.createConnection(
 );
 
 // POST route to add a movie to the list
-/*app.post('/api/add-movie', (req, res) => {
-    const { movie_name } = req.body;
+app.post('/api/add-movie', (req, res) => {
+    const newMovie = {
+        id: req.body.id, 
+        movie_name: req.body.movie_name
+    };
+    let sql = `INSERT INTO movies (id, movie_name) VALUES(${id}, ${movie_name})`;
+    db.query(sql, function(err, result) {
+        if(err) throw err;
+        res.send(JSON.stringify(results));
+    });
+    /*db.query('INSERT INTO movies (id, movie_name) VALUES', newMovie, function(err, results) {
+        if(err) throw err;
+        res.send(JSON.stringify(results));
+    });*/
 
-    if (movie_name) {
+    /*if (movie_name) {
         const newMovie = {
             id,
             movie_name
@@ -34,8 +46,8 @@ const db = mysql.createConnection(
         db.query('INSERT INTO movies VALUES(id, movie_name)', function (err, results) {
             console.log(results);
         });
-    }
-});*/
+    }*/
+});
 // GET route to render list of all movies
 app.get('/api/movies', (req, res) => {
     db.query('SELECT * FROM movies', function(err, results) {
