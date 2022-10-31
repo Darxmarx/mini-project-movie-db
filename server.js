@@ -15,16 +15,34 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: 'EveisthEbEst17!',
+        password: 'EvEisthEbEst17!',
         database: 'movie_db'
     },
     console.log('Connected to the movie_db database.')
 );
 
 // POST route to add a movie to the list
+/*app.post('/api/add-movie', (req, res) => {
+    const { movie_name } = req.body;
 
+    if (movie_name) {
+        const newMovie = {
+            id,
+            movie_name
+        };
+
+        db.query('INSERT INTO movies VALUES(id, movie_name)', function (err, results) {
+            console.log(results);
+        });
+    }
+});*/
 // GET route to render list of all movies
-
+app.get('/api/movies', (req, res) => {
+    db.query('SELECT * FROM movies', function(err, results) {
+        if(err) throw err;
+        res.send(JSON.stringify(results));
+    });
+});
 // DELETE route to delete a specific movie based on movie's id
 
 // GET (and join) route that gets all movies and their associated reviews
@@ -33,5 +51,5 @@ const db = mysql.createConnection(
 
 // confirms app is listening at specific port
 app.listen(PORT, () =>
-    console.log(`App listening at http://localhostr:${PORT}`)
+    console.log(`App listening at http://localhost:${PORT}`)
 );
